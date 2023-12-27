@@ -41,7 +41,7 @@ resource "aws_route_table" "public" {
 resource "aws_route" "to_igw" {
   count = local.create_public_subnets ? 1 : 0
 
-  route_table_id         = aws_route_table.main[0].id
+  route_table_id         = aws_route_table.public[0].id
   destination_cidr_block = local.all_ips
   gateway_id             = aws_internet_gateway.main[0].id
 }
