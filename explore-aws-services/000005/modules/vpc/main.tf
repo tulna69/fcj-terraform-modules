@@ -55,7 +55,7 @@ resource "aws_route_table_association" "public" {
 
 resource "aws_subnet" "public" {
   for_each = {
-    for idx, cidr in range(var.public_subnets) : cidr => var.azs[idx % length(var.azs)]
+    for idx, cidr in range(length(var.public_subnets)) : cidr => var.azs[idx % length(var.azs)]
   }
 
   vpc_id                  = aws_vpc.main.id
@@ -71,7 +71,7 @@ resource "aws_subnet" "public" {
 
 resource "aws_subnet" "private" {
   for_each = {
-    for idx, cidr in range(var.private_subnets) : cidr => var.azs[idx % length(var.azs)]
+    for idx, cidr in range(length(var.private_subnets)) : cidr => var.azs[idx % length(var.azs)]
   }
 
   vpc_id            = aws_vpc.main.id
