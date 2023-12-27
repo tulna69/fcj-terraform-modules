@@ -19,7 +19,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_internet_gateway" "main" {
-  count = create_public_subnets ? 1 : 0
+  count = local.create_public_subnets ? 1 : 0
 
   vpc_id = aws_vpc.main.id
 
@@ -29,7 +29,7 @@ resource "aws_internet_gateway" "main" {
 }
 
 resource "aws_route_table" "public" {
-  count = create_public_subnets ? 1 : 0
+  count = local.create_public_subnets ? 1 : 0
 
   vpc_id = aws_vpc.main.id
 
@@ -39,7 +39,7 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route" "to_igw" {
-  count = create_public_subnets ? 1 : 0
+  count = local.create_public_subnets ? 1 : 0
 
   route_table_id         = aws_route_table.main[0].id
   destination_cidr_block = local.all_ips
