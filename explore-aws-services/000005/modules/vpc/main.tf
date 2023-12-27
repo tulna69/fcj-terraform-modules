@@ -50,7 +50,7 @@ resource "aws_route_table_association" "public" {
   for_each = toset(aws_subnet.public)
 
   route_table_id = aws_route_table.public[0].id
-  subnet_id      = each.key.id
+  subnet_id      = each.value.id
 }
 
 resource "aws_subnet" "public" {
